@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+  <div class="content">
+      <button mat-button routerLink="/">
+        <h3>Pokemon Cards DB</h3>
+      </button>
+
+      <!-- This fills the remaining space of the current row -->
+      <span class="example-fill-remaining-space"></span>
+
+      <button mat-button>
+        <mat-icon>list</mat-icon>
+        Set
+      </button>
+
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>settings</mat-icon>
+        <span>More</span>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [routerLink]="['/toolbox']">
+          <span>Advanced</span>
+        </button>
+      </mat-menu>
+  </div>
+</mat-toolbar>

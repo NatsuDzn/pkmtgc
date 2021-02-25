@@ -1,0 +1,19 @@
+<div class="container">
+  <h3>Pokemon Card DB</h3>
+  <h4>Explore all pokemon cards and set !</h4>
+
+  <div class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Card name</mat-label>
+      <input type="search" matInput placeholder="Search for a card (ex: charizard)" [(ngModel)]="searchText"
+        (keyup.enter)="searchCard(searchText)">
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="cards">
+  <ng-contaienr *ngFor="let card of pkmCards">
+    <img [src]="card.images.small" (click)="openCard(card.name, card.id)" />
+  </ng-contaienr>
+</div>

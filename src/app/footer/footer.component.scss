@@ -1,0 +1,22 @@
+mat-toolbar {
+  margin-top: 30px;
+  height: 48px;
+  position: absolute;
+  bottom: 0;
+  width: 100%
+}
+
+.content {
+  display: flex;
+  justify-content: flex-end;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+
+  p {
+    margin: 0;
+    font-weight: normal;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+}

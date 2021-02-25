@@ -1,0 +1,126 @@
+<div class="container" *ngIf="cardData">
+  <div class="container__details">
+    <div class="container__details--card">
+      <img [src]="cardData.images.large" />
+    </div>
+    <div class="container__details--data">
+      <div class="heading">
+        <span>
+          <h3 class="heading__name">{{cardData.name}}</h3>
+          <span class="subtypes">
+            <h4>{{cardData.supertype}} {{ cardData.subtypes ? '-' : ''}}</h4>
+            <ng-container *ngFor="let subtype of cardData.subtypes; let isLast=last">
+              <h4>{{subtype}}{{isLast ? '' : ','}}</h4>
+            </ng-container>
+          </span>
+        </span>
+        <span class="types">
+          <p *ngIf="cardData.hp" class="hp">HP {{cardData.hp}}</p>
+          <ng-container *ngFor="let type of cardData.types">
+            <img [src]="'assets/energies/' + type + '.png'" />
+          </ng-container>
+        </span>
+      </div>
+
+      <section class="content">
+        <section *ngIf="cardData.abilities">
+          <h5>Abilities</h5>
+
+          <ng-container *ngFor="let ability of cardData.abilities">
+            <div class="content__abilities">
+              <span> <img [src]="'assets/misc/' + ability.type + '.png'" /> <b>{{ability.name}}</b></span>
+              <p>{{ability.text}}</p>
+            </div>
+          </ng-container>
+        </section>
+
+        <section *ngIf="cardData.attacks">
+          <h5>Attacks</h5>
+
+          <ng-container *ngFor="let attack of cardData.attacks">
+            <div class="content__attacks">
+              <div class="content__attacks--energies">
+                <ng-container *ngFor="let cost of attack.cost">
+                  <img [src]="'assets/energies/' + cost + '.png'" />
+                </ng-container>
+              </div>
+              <p>{{attack.name}}</p>
+              <p class="damage">{{attack.damage}}</p>
+            </div>
+            <p>{{attack.text}}</p>
+          </ng-container>
+        </section>
+
+        <section *ngIf="cardData.rules">
+          <h5>Rules</h5>
+
+          <ng-container *ngFor="let rule of cardData.rules">
+            <p>{{rule}}</p>
+          </ng-container>
+        </section>
+
+        <section class="misc">
+
+          <div class="one-third misc__weakness">
+            <h5>Weakness</h5>
+            <ng-container *ngFor="let weakness of cardData.weaknesses">
+              <div class="misc__weakness--container">
+                <img [src]="'assets/energies/' + weakness.type + '.png'" />
+                <p>{{weakness.value}}</p>
+              </div>
+            </ng-container>
+            <p *ngIf="!cardData.weaknesses">N/A</p>
+          </div>
+
+          <div class="one-third misc__resistances">
+            <h5>Resistance</h5>
+            <ng-container *ngFor="let resistance of cardData.resistances">
+              <div class="misc__resistances--container">
+                <img [src]="'assets/energies/' + resistance.type + '.png'" />
+                <p>{{resistance.value}}</p>
+              </div>
+            </ng-container>
+
+            <p *ngIf="!cardData.resistances">N/A</p>
+          </div>
+
+          <div class="one-third misc__retreatCost">
+            <h5>Retreat cost</h5>
+            <ng-container *ngFor="let retreat of cardData.retreatCost">
+              <div class="misc__retreatCost--container">
+                <img [src]="'assets/energies/' + retreat + '.png'" />
+              </div>
+            </ng-container>
+            <p *ngIf="!cardData.retreatCost">N/A</p>
+
+          </div>
+
+          <div class="one-third misc__artist">
+            <h5>Artist</h5>
+            <p>{{cardData.artist}}</p>
+          </div>
+
+          <div class="one-third misc__rarity">
+            <h5>Rarity</h5>
+            <p>{{cardData.rarity}}</p>
+          </div>
+
+          <div class="one-third misc__set">
+            <h5>Set</h5>
+            <div class="misc__set--container">
+              <p>{{cardData.set.name}}</p>
+              <img [src]="cardData.set.images.symbol" />
+            </div>
+          </div>
+
+          <div class="one-third misc__number">
+            <h5>Number</h5>
+            <p>{{cardData.number}}/{{cardData.set.printedTotal}}</p>
+          </div>
+        </section>
+
+        <p class="flavor">{{cardData.flavorText}}</p>
+      </section>
+    </div>
+  </div>
+</div>

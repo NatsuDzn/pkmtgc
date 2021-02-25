@@ -1,0 +1,204 @@
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+
+  &__details {
+    display: flex;
+
+    &--card {
+      width: 33.3333%;
+      padding: 1rem;
+
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+      }
+    }
+
+    &--data {
+      width: 50%;
+      margin-left: 8.3333333333%;
+      padding: 1rem;
+
+      .heading {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #f1f1f1;
+
+        &__name {
+          font-size: 32px;
+          font-weight: bold;
+        }
+
+        .subtypes {
+          display: flex;
+
+          h4 {
+            font-size: 20px;
+            margin-right: 6px;
+          }
+        }
+
+        .types {
+          display: inline-flex;
+          align-items: flex-start;
+
+          p {
+            margin-right: .5rem;
+            font-weight: 400;
+          }
+
+          img {
+            width: 25px;
+            max-width: 25px;
+          }
+        }
+
+        h3,
+        h4 {
+          margin: 0;
+        }
+
+        .hp {
+          font-size: 1.5rem;
+        }
+      }
+
+    }
+  }
+}
+
+section {
+  padding-top: 20px;
+
+  .flavor {
+    font-style: italic;
+  }
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  h5 {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .content {
+    &__abilities {
+      span {
+        display: flex;
+        align-items: center;
+        margin-bottom: .25rem;
+
+        img {
+          margin-right: .5rem;
+          width: 100px;
+          height: auto;
+        }
+
+        b {
+          font-size: 24px;
+        }
+      }
+
+      p {
+        font-size: 16px;
+      }
+    }
+
+    &__attacks {
+      display: flex;
+      align-items: center;
+
+      p {
+        margin: 0;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .damage {
+        margin-left: auto;
+      }
+
+
+      &--energies {
+        padding: .5rem .75rem 0 0;
+
+        img {
+          width: 25px;
+          max-width: 25px;
+
+          margin-right: .5rem;
+        }
+      }
+    }
+
+  }
+
+  .misc {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-left: -.75rem;
+    margin-top: -.75rem;
+
+    p {
+      font-size: 20px;
+    }
+
+    &__weakness,
+    &__resistances,
+    &__retreatCost {
+
+      &--container {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        p {
+          font-weight: bold;
+          margin: 0;
+        }
+
+        img {
+          width: 25px;
+          max-width: 25px;
+          margin-right: .5rem;
+        }
+      }
+    }
+
+    &__set {
+
+      &--container {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        p {
+          margin: 0;
+        }
+
+        img {
+          width: 25px;
+          max-width: 25px;
+          margin-left: .5rem;
+        }
+      }
+    }
+  }
+}
+
+.one-third {
+  flex: none;
+  padding: .75rem;
+  width: 30%;
+}

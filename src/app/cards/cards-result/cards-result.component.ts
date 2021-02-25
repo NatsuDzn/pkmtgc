@@ -12,6 +12,8 @@ import { PokemontgcService } from 'src/app/services/pokemontgc.service';
 export class CardsResultComponent implements OnInit {
   searchCards: any;
   queryName: string = this.route.snapshot.queryParams.name;
+  queryArtist: string = this.route.snapshot.queryParams.artist;
+  queryRarity: string = this.route.snapshot.queryParams.rarity;
 
   pageEvent: PageEvent;
   page: number = 0;
@@ -30,16 +32,44 @@ export class CardsResultComponent implements OnInit {
   }
 
   searchCard() {
-    this.pkm.searchCards(this.queryName, this.size, this.page + 1).subscribe(
-      (res) => {
-        this.searchCards = res;
-        console.log(res);
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {}
-    );
+    if (this.queryName) {
+      this.pkm.searchCards(this.queryName, this.size, this.page + 1).subscribe(
+        (res) => {
+          this.searchCards = res;
+          console.log(res);
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {}
+      );
+    } else if (this.queryArtist) {
+      this.pkm
+        .searchCardsByArtist(this.queryArtist, this.size, this.page + 1)
+        .subscribe(
+          (res) => {
+            this.searchCards = res;
+            console.log(res);
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {}
+        );
+    } else if (this.queryRarity) {
+      this.pkm
+        .searchCardsByRarity(this.queryRarity, this.size, this.page + 1)
+        .subscribe(
+          (res) => {
+            this.searchCards = res;
+            console.log(res);
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {}
+        );
+    }
   }
 
   pageNavigations(event?: PageEvent) {

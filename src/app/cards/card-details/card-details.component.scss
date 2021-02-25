@@ -28,6 +28,10 @@
         padding-bottom: 1rem;
         border-bottom: 1px solid #f1f1f1;
 
+        p {
+          margin: 0;
+        }
+
         &__name {
           font-size: 32px;
           font-weight: bold;
@@ -182,12 +186,6 @@ section {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        cursor: pointer;
-
-        &:hover {
-          color: blue;
-          text-decoration: underline;
-        }
 
         p {
           margin: 0;
@@ -207,4 +205,13 @@ section {
   flex: none;
   padding: .75rem;
   width: 30%;
+}
+
+.link {
+  cursor: pointer;
+
+  &:hover {
+    color: blue;
+    text-decoration: underline;
+  }
 }

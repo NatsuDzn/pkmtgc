@@ -41,4 +41,22 @@ export class CardDetailsComponent implements OnInit {
     var finalName = convertedName.replace('&', 'and');
     this.router.navigate(['/sets', finalName, id]);
   }
+
+  searchName(name) {
+    this.router.navigate(['/search'], {
+      queryParams: { name: name },
+    });
+  }
+
+  searchArtist(artist) {
+    this.router.navigate(['/search'], {
+      queryParams: { artist: artist },
+    });
+  }
+
+  searchRarity(rarity) {
+    this.router.navigate(['/search'], {
+      queryParams: { rarity: rarity },
+    });
+  }
 }

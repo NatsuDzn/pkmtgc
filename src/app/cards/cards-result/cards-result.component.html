@@ -1,11 +1,14 @@
-<h3 class="mat-display-1">Search: {{queryName}}</h3>
+<h3 class="mat-display-1" *ngIf="queryName">Search: {{queryName}}</h3>
+<h3 class="mat-display-1" *ngIf="queryArtist">Artist: {{queryArtist}}</h3>
+
+<p *ngIf="searchCards?.data.length === 0">No cards have been found</p>
 
 <div class="result" *ngIf="searchCards">
   <ng-container *ngFor="let card of searchCards.data">
     <img [src]="card.images.small" (click)="openCard(card.name, card.id)" />
   </ng-container>
 </div>
-<mat-paginator *ngIf="searchCards" [pageSizeOptions]="pageSizeOptions" [pageSize]="size"
+<mat-paginator *ngIf="searchCards && searchCards.totalCount > 10" [pageSizeOptions]="pageSizeOptions" [pageSize]="size"
   (page)="pageNavigations($event)"
   (selectChange)="searchCard()"
   [length]="searchCards.totalCount">

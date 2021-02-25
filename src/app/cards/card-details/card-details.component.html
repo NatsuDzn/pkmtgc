@@ -14,12 +14,19 @@
             </ng-container>
           </span>
         </span>
-        <span class="types">
-          <p *ngIf="cardData.hp" class="hp">HP {{cardData.hp}}</p>
-          <ng-container *ngFor="let type of cardData.types">
-            <img [src]="'assets/energies/' + type + '.png'" />
-          </ng-container>
-        </span>
+        <div>
+          <span class="types">
+            <p *ngIf="cardData.hp" class="hp">HP {{cardData.hp}}</p>
+            <ng-container *ngFor="let type of cardData.types">
+              <img [src]="'assets/energies/' + type + '.png'" />
+            </ng-container>
+          </span>
+          <p *ngIf="cardData.evolvesFrom">Evolves from: <a class="link"
+              (click)="searchName(cardData.evolvesFrom)">{{cardData.evolvesFrom}}</a></p>
+          <p *ngIf="cardData.evolvesTo">Evolves to: <a class="link"
+              (click)="searchName(cardData.evolvesTo)">{{cardData.evolvesTo}}</a></p>
+        </div>
+
       </div>
 
       <section class="content">
@@ -97,18 +104,19 @@
 
           <div class="one-third misc__artist">
             <h5>Artist</h5>
-            <p>{{cardData.artist}}</p>
+            <p class="link" (click)="searchArtist(cardData.artist)">{{cardData.artist}}</p>
             <p *ngIf="!cardData.artist">N/A</p>
           </div>
 
           <div class="one-third misc__rarity">
             <h5>Rarity</h5>
-            <p>{{cardData.rarity}}</p>
+            <p class="link" (click)="searchRarity(cardData.rarity)">{{cardData.rarity}}</p>
+            <p *ngIf="!cardData.rarity">N/A</p>
           </div>
 
           <div class="one-third misc__set">
             <h5>Set</h5>
-            <div class="misc__set--container" (click)="openSet(cardData.set.name, cardData.set.id)">
+            <div class="misc__set--container link" (click)="openSet(cardData.set.name, cardData.set.id)">
               <p>{{cardData.set.name}}</p>
               <img [src]="cardData.set.images.symbol" />
             </div>

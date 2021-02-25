@@ -98,6 +98,7 @@
           <div class="one-third misc__artist">
             <h5>Artist</h5>
             <p>{{cardData.artist}}</p>
+            <p *ngIf="!cardData.artist">N/A</p>
           </div>
 
           <div class="one-third misc__rarity">
@@ -107,7 +108,7 @@
 
           <div class="one-third misc__set">
             <h5>Set</h5>
-            <div class="misc__set--container">
+            <div class="misc__set--container" (click)="openSet(cardData.set.name, cardData.set.id)">
               <p>{{cardData.set.name}}</p>
               <img [src]="cardData.set.images.symbol" />
             </div>

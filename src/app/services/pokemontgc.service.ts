@@ -36,4 +36,16 @@ export class PokemontgcService {
         limit
     );
   }
+
+  public getAllSets() {
+    return this.http.get(this.api_url + 'sets');
+  }
+
+  public getCardsBySet(id) {
+    return this.http.get(
+      this.api_url +
+        'cards?q=set.id:' +
+        id
+    );
+  }
 }

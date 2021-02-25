@@ -14,12 +14,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatCardModule } from '@angular/material/card';
 
 
 import { FormsModule } from '@angular/forms';
-import { CardsResultComponent } from './cards-result/cards-result.component';
-import { CardDetailsComponent } from './card-details/card-details.component';
+import { CardsResultComponent } from './cards/cards-result/cards-result.component';
+import { CardDetailsComponent } from './cards/card-details/card-details.component';
 import { FooterComponent } from './footer/footer.component';
+import { SetViewComponent } from './set/set-view/set-view.component';
+import { SetListComponent } from './set/set-list/set-list.component';
 
 
 @NgModule({
@@ -30,6 +33,8 @@ import { FooterComponent } from './footer/footer.component';
     CardsResultComponent,
     CardDetailsComponent,
     FooterComponent,
+    SetViewComponent,
+    SetListComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +49,7 @@ import { FooterComponent } from './footer/footer.component';
     FormsModule,
     MatPaginatorModule,
     MatProgressBarModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

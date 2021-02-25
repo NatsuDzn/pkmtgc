@@ -182,6 +182,12 @@ section {
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
+
+        &:hover {
+          color: blue;
+          text-decoration: underline;
+        }
 
         p {
           margin: 0;

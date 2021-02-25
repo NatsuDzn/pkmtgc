@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PokemontgcService } from '../services/pokemontgc.service';
+import { PokemontgcService } from '../../services/pokemontgc.service';
 
 
 @Component({
@@ -25,15 +25,20 @@ export class CardDetailsComponent implements OnInit {
   cardInfo() {
     this.pkm.getCardInfo(this.cardId).subscribe(
       (res) => {
-        this.cardData = res["data"];
+        this.cardData = res['data'];
       },
       (error) => {
         console.log(error);
       },
       () => {
         console.log(this.cardData);
-        
       }
     );
+  }
+
+  openSet(name, id) {
+    var convertedName = name.replace(/\s+/g, '-').toLowerCase();
+    var finalName = convertedName.replace('&', 'and');
+    this.router.navigate(['/sets', finalName, id]);
   }
 }

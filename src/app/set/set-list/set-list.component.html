@@ -1,0 +1,19 @@
+<div class="sets">
+    <ng-container *ngFor="let set of setLists?.reverse()">
+      <div class="card" (click)="openSet(set.name, set.id)">
+        <div class="card__img">
+          <img [src]="set.images.logo" alt="{{set.name}}">
+        </div>
+
+        <div class="card__content">
+          <figure class="card__content--symbol">
+            <img [src]="set.images.symbol" alt="{{set.name}}">
+          </figure>
+          <div class="card__content--data">
+            <p class="sets__title">{{set.name}}</p>
+            <p class="sets__date">{{set.releaseDate}}</p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+</div>

@@ -3,6 +3,19 @@
 }
 
 main {
+  display: flex;
+  flex-direction: column;
   max-width: 1440px;
   margin: 0 auto;
+  min-height: calc(100vh - 48px - 64px)
+}
+
+::ng-deep {
+  .loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 48px - 64px);
+    
+  }
 }

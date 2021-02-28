@@ -33,7 +33,7 @@ export class HeroComponent implements OnInit {
 
   searchCard(name) {
     this.router.navigate(['/search'], {
-      queryParams: { name: name },
+      queryParams: { name: name, sortedBy: 'set.releaseDate', order: '' },
     });
   }
 

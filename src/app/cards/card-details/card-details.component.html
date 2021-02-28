@@ -1,135 +1,169 @@
-<div class="container" *ngIf="cardData">
-  <div class="container__details">
-    <div class="container__details--card">
-      <img [src]="cardData.images.large" />
-    </div>
-    <div class="container__details--data">
-      <div class="heading">
-        <span>
-          <h3 class="heading__name">{{cardData.name}}</h3>
-          <span class="subtypes">
-            <h4>{{cardData.supertype}} {{ cardData.subtypes ? '-' : ''}}</h4>
-            <ng-container *ngFor="let subtype of cardData.subtypes; let isLast=last">
-              <h4>{{subtype}}{{isLast ? '' : ','}}</h4>
-            </ng-container>
+<div class="loader" *ngIf="!cardData">
+  <mat-spinner></mat-spinner>
+</div>
+
+
+  <div class="container" *ngIf="cardData">
+    <div class="container__details">
+      <div class="container__details--card">
+        <img [src]="cardData.images.large" />
+      </div>
+      <div class="container__details--data">
+        <div class="heading">
+          <span>
+            <h3 class="heading__name">{{cardData.name}}</h3>
+            <span class="subtypes">
+              <h4>{{cardData.supertype}} {{ cardData.subtypes ? '-' : ''}}</h4>
+              <ng-container *ngFor="let subtype of cardData.subtypes; let isLast=last">
+                <h4>{{subtype}}{{isLast ? '' : ','}}</h4>
+              </ng-container>
+            </span>
           </span>
-        </span>
-        <div>
-          <span class="types">
-            <p *ngIf="cardData.hp" class="hp">HP {{cardData.hp}}</p>
-            <ng-container *ngFor="let type of cardData.types">
-              <img [src]="'assets/energies/' + type + '.png'" />
-            </ng-container>
-          </span>
-          <p *ngIf="cardData.evolvesFrom">Evolves from: <a class="link"
-              (click)="searchName(cardData.evolvesFrom)">{{cardData.evolvesFrom}}</a></p>
-          <p *ngIf="cardData.evolvesTo">Evolves to: <a class="link"
-              (click)="searchName(cardData.evolvesTo)">{{cardData.evolvesTo}}</a></p>
+          <div>
+            <span class="types">
+              <p *ngIf="cardData.hp" class="hp">HP {{cardData.hp}}</p>
+              <ng-container *ngFor="let type of cardData.types">
+                <img [src]="'assets/energies/' + type + '.png'" />
+              </ng-container>
+            </span>
+            <p *ngIf="cardData.evolvesFrom">Evolves from: <a class="link"
+                (click)="searchName(cardData.evolvesFrom)">{{cardData.evolvesFrom}}</a></p>
+            <p *ngIf="cardData.evolvesTo">Evolves to: <a class="link"
+                (click)="searchName(cardData.evolvesTo)">{{cardData.evolvesTo}}</a></p>
+          </div>
+
         </div>
 
+        <section class="content">
+          <section *ngIf="cardData.abilities">
+            <h5>Abilities</h5>
+
+            <ng-container *ngFor="let ability of cardData.abilities">
+              <div class="content__abilities">
+                <span> <img [src]="'assets/misc/' + ability.type + '.png'" /> <b>{{ability.name}}</b></span>
+                <p>{{ability.text}}</p>
+              </div>
+            </ng-container>
+          </section>
+
+          <section *ngIf="cardData.attacks">
+            <h5>Attacks</h5>
+
+            <ng-container *ngFor="let attack of cardData.attacks">
+              <div class="content__attacks">
+                <div class="content__attacks--energies">
+                  <ng-container *ngFor="let cost of attack.cost">
+                    <img [src]="'assets/energies/' + cost + '.png'" />
+                  </ng-container>
+                </div>
+                <p>{{attack.name}}</p>
+                <p class="damage">{{attack.damage}}</p>
+              </div>
+              <p>{{attack.text}}</p>
+            </ng-container>
+          </section>
+
+          <section *ngIf="cardData.rules">
+            <h5>Rules</h5>
+
+            <ng-container *ngFor="let rule of cardData.rules">
+              <p>{{rule}}</p>
+            </ng-container>
+          </section>
+
+          <section class="misc">
+
+            <div class="one-third misc__weakness">
+              <h5>Weakness</h5>
+              <ng-container *ngFor="let weakness of cardData.weaknesses">
+                <div class="misc__weakness--container">
+                  <img [src]="'assets/energies/' + weakness.type + '.png'" />
+                  <p>{{weakness.value}}</p>
+                </div>
+              </ng-container>
+              <p *ngIf="!cardData.weaknesses">N/A</p>
+            </div>
+
+            <div class="one-third misc__resistances">
+              <h5>Resistance</h5>
+              <ng-container *ngFor="let resistance of cardData.resistances">
+                <div class="misc__resistances--container">
+                  <img [src]="'assets/energies/' + resistance.type + '.png'" />
+                  <p>{{resistance.value}}</p>
+                </div>
+              </ng-container>
+
+              <p *ngIf="!cardData.resistances">N/A</p>
+            </div>
+
+            <div class="one-third misc__retreatCost">
+              <h5>Retreat cost</h5>
+              <ng-container *ngFor="let retreat of cardData.retreatCost">
+                <div class="misc__retreatCost--container">
+                  <img [src]="'assets/energies/' + retreat + '.png'" />
+                </div>
+              </ng-container>
+              <p *ngIf="!cardData.retreatCost">N/A</p>
+
+            </div>
+
+            <div class="one-third misc__artist">
+              <h5>Artist</h5>
+              <p class="link" (click)="searchArtist(cardData.artist)">{{cardData.artist}}</p>
+              <p *ngIf="!cardData.artist">N/A</p>
+            </div>
+
+            <div class="one-third misc__rarity">
+              <h5>Rarity</h5>
+              <p class="link" (click)="searchRarity(cardData.rarity)">{{cardData.rarity}}</p>
+              <p *ngIf="!cardData.rarity">N/A</p>
+            </div>
+
+            <div class="one-third misc__set">
+              <h5>Set</h5>
+              <div class="misc__set--container link" (click)="openSet(cardData.set.name, cardData.set.id)">
+                <p>{{cardData.set.name}}</p>
+                <img [src]="cardData.set.images.symbol" />
+              </div>
+            </div>
+
+            <div class="one-third misc__number">
+              <h5>Number</h5>
+              <p>{{cardData.number}}/{{cardData.set.printedTotal}}</p>
+            </div>
+          </section>
+
+          <p class="flavor">{{cardData.flavorText}}</p>
+
+          <section>
+            <h5>Prices</h5>
+
+            <ng-container *ngFor="let price of cardData.tcgplayer.prices | keyvalue">
+              <span class="accordion">
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title class="title">
+                        {{price.key}}
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="prices">
+                      <ng-container *ngFor="let cost of price.value | keyvalue">
+                        <span *ngIf="cost.value">
+                          <p>{{cost.key | titlecase}}:</p>
+                          <p>{{cost.value}}$</p>
+                        </span>
+                      </ng-container>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </span>
+            </ng-container>
+          </section>
+
+          <button mat-raised-button (click)="openBottomSheet()">Search this cards</button>
+
+        </section>
       </div>
-
-      <section class="content">
-        <section *ngIf="cardData.abilities">
-          <h5>Abilities</h5>
-
-          <ng-container *ngFor="let ability of cardData.abilities">
-            <div class="content__abilities">
-              <span> <img [src]="'assets/misc/' + ability.type + '.png'" /> <b>{{ability.name}}</b></span>
-              <p>{{ability.text}}</p>
-            </div>
-          </ng-container>
-        </section>
-
-        <section *ngIf="cardData.attacks">
-          <h5>Attacks</h5>
-
-          <ng-container *ngFor="let attack of cardData.attacks">
-            <div class="content__attacks">
-              <div class="content__attacks--energies">
-                <ng-container *ngFor="let cost of attack.cost">
-                  <img [src]="'assets/energies/' + cost + '.png'" />
-                </ng-container>
-              </div>
-              <p>{{attack.name}}</p>
-              <p class="damage">{{attack.damage}}</p>
-            </div>
-            <p>{{attack.text}}</p>
-          </ng-container>
-        </section>
-
-        <section *ngIf="cardData.rules">
-          <h5>Rules</h5>
-
-          <ng-container *ngFor="let rule of cardData.rules">
-            <p>{{rule}}</p>
-          </ng-container>
-        </section>
-
-        <section class="misc">
-
-          <div class="one-third misc__weakness">
-            <h5>Weakness</h5>
-            <ng-container *ngFor="let weakness of cardData.weaknesses">
-              <div class="misc__weakness--container">
-                <img [src]="'assets/energies/' + weakness.type + '.png'" />
-                <p>{{weakness.value}}</p>
-              </div>
-            </ng-container>
-            <p *ngIf="!cardData.weaknesses">N/A</p>
-          </div>
-
-          <div class="one-third misc__resistances">
-            <h5>Resistance</h5>
-            <ng-container *ngFor="let resistance of cardData.resistances">
-              <div class="misc__resistances--container">
-                <img [src]="'assets/energies/' + resistance.type + '.png'" />
-                <p>{{resistance.value}}</p>
-              </div>
-            </ng-container>
-
-            <p *ngIf="!cardData.resistances">N/A</p>
-          </div>
-
-          <div class="one-third misc__retreatCost">
-            <h5>Retreat cost</h5>
-            <ng-container *ngFor="let retreat of cardData.retreatCost">
-              <div class="misc__retreatCost--container">
-                <img [src]="'assets/energies/' + retreat + '.png'" />
-              </div>
-            </ng-container>
-            <p *ngIf="!cardData.retreatCost">N/A</p>
-
-          </div>
-
-          <div class="one-third misc__artist">
-            <h5>Artist</h5>
-            <p class="link" (click)="searchArtist(cardData.artist)">{{cardData.artist}}</p>
-            <p *ngIf="!cardData.artist">N/A</p>
-          </div>
-
-          <div class="one-third misc__rarity">
-            <h5>Rarity</h5>
-            <p class="link" (click)="searchRarity(cardData.rarity)">{{cardData.rarity}}</p>
-            <p *ngIf="!cardData.rarity">N/A</p>
-          </div>
-
-          <div class="one-third misc__set">
-            <h5>Set</h5>
-            <div class="misc__set--container link" (click)="openSet(cardData.set.name, cardData.set.id)">
-              <p>{{cardData.set.name}}</p>
-              <img [src]="cardData.set.images.symbol" />
-            </div>
-          </div>
-
-          <div class="one-third misc__number">
-            <h5>Number</h5>
-            <p>{{cardData.number}}/{{cardData.set.printedTotal}}</p>
-          </div>
-        </section>
-
-        <p class="flavor">{{cardData.flavorText}}</p>
-      </section>
     </div>
   </div>
-</div>

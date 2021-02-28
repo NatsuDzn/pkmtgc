@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PokemontgcService } from '../../services/pokemontgc.service';
+import {
+  MatBottomSheet,
+} from '@angular/material/bottom-sheet';
+import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component';
 
 
 @Component({
@@ -15,8 +19,15 @@ export class CardDetailsComponent implements OnInit {
   constructor(
     private pkm: PokemontgcService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _bottomSheet: MatBottomSheet
   ) {}
+
+  openBottomSheet(): void {
+    this._bottomSheet.open(BottomSheetComponent, {
+      data: { card: this.cardData },
+    });
+  }
 
   ngOnInit() {
     this.cardInfo();

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PokemontgcService } from 'src/app/services/pokemontgc.service';
-
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { SearchCards } from 'src/app/services/interface';
 
 @Component({
   selector: 'app-cards-result',
@@ -10,10 +12,33 @@ import { PokemontgcService } from 'src/app/services/pokemontgc.service';
   styleUrls: ['./cards-result.component.scss'],
 })
 export class CardsResultComponent implements OnInit {
+  ELEMENT_DATA: SearchCards[];
+  displayedColumns: string[] = [
+    'set',
+    'no',
+    'name',
+    'rarity',
+    'types',
+    'supertype',
+    'subtypes',
+    'prices',
+  ];
+  dataSource: any;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
   searchCards: any;
   queryName: string = this.route.snapshot.queryParams.name;
   queryArtist: string = this.route.snapshot.queryParams.artist;
   queryRarity: string = this.route.snapshot.queryParams.rarity;
+
+  viewAs: string = 'list';
+  querySort: string =
+    this.route.snapshot.queryParams.sortedBy || 'set.releaseDate';
+  queryOrder: string = this.route.snapshot.queryParams.order || '';
+
+  tooltipIndex: number;
+  mouseX: any;
+  mouseY: any;
 
   pageEvent: PageEvent;
   page: number = 0;
@@ -28,24 +53,44 @@ export class CardsResultComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.dataSource = new MatTableDataSource<SearchCards>(this.ELEMENT_DATA);
+    this.dataSource.paginator = this.paginator;
     this.searchCard();
   }
 
   searchCard() {
     if (this.queryName) {
-      this.pkm.searchCards(this.queryName, this.size, this.page + 1).subscribe(
-        (res) => {
-          this.searchCards = res;
-          console.log(res);
-        },
-        (error) => {
-          console.log(error);
-        },
-        () => {}
-      );
+      this.pkm
+        .searchCards(
+          'name',
+          this.queryName,
+          this.size,
+          this.page + 1,
+          this.querySort,
+          this.queryOrder
+        )
+        .subscribe(
+          (res) => {
+            this.searchCards = res;
+            console.log(res['data']);
+
+            this.dataSource.data = res['data'] as SearchCards[];
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {}
+        );
     } else if (this.queryArtist) {
       this.pkm
-        .searchCardsByArtist(this.queryArtist, this.size, this.page + 1)
+        .searchCards(
+          'artist',
+          this.queryArtist,
+          this.size,
+          this.page + 1,
+          this.querySort,
+          this.queryOrder
+        )
         .subscribe(
           (res) => {
             this.searchCards = res;
@@ -58,7 +103,14 @@ export class CardsResultComponent implements OnInit {
         );
     } else if (this.queryRarity) {
       this.pkm
-        .searchCardsByRarity(this.queryRarity, this.size, this.page + 1)
+        .searchCards(
+          'rarity',
+          this.queryRarity,
+          this.size,
+          this.page + 1,
+          this.querySort,
+          this.queryOrder
+        )
         .subscribe(
           (res) => {
             this.searchCards = res;
@@ -81,5 +133,95 @@ export class CardsResultComponent implements OnInit {
   openCard(name, id) {
     var convertedName = name.replace(/\s+/g, '-').toLowerCase();
     this.router.navigate(['/card', convertedName, id]);
+  }
+
+  updateSort(sort, direction) {
+    if (this.queryName) {
+      this.router.navigate(['/search'], {
+        queryParams: { name: this.queryName, sortedBy: sort, order: direction },
+      });
+
+      this.pkm
+        .searchCards(
+          'name',
+          this.queryName,
+          this.size,
+          this.page + 1,
+          sort,
+          direction
+        )
+        .subscribe(
+          (res) => {
+            this.searchCards = res;
+            this.dataSource.data = res['data'] as SearchCards[];
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {}
+        );
+    } else if (this.queryArtist) {
+      this.router.navigate(['/search'], {
+        queryParams: {
+          artist: this.queryArtist,
+          sortedBy: sort,
+          order: direction,
+        },
+      });
+
+      this.pkm
+        .searchCards(
+          'artist',
+          this.queryArtist,
+          this.size,
+          this.page + 1,
+          sort,
+          direction
+        )
+        .subscribe(
+          (res) => {
+            this.searchCards = res;
+            console.log(res);
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {}
+        );
+    } else if (this.queryRarity) {
+      this.router.navigate(['/search'], {
+        queryParams: {
+          rarity: this.queryRarity,
+          sortedBy: sort,
+          order: direction,
+        },
+      });
+
+      this.pkm
+        .searchCards(
+          'rarity',
+          this.queryRarity,
+          this.size,
+          this.page + 1,
+          sort,
+          direction
+        )
+        .subscribe(
+          (res) => {
+            this.searchCards = res;
+            console.log(res);
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {}
+        );
+    }
+  }
+
+  cardTooltip(index, event) {
+    this.tooltipIndex = index;
+    this.mouseX = (event.clientX + 16) + 'px';
+    this.mouseY = (event.clientY + 16) + 'px';
   }
 }

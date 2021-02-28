@@ -25,35 +25,17 @@ export class PokemontgcService {
     return this.http.get(this.api_url + 'cards/' + id);
   }
 
-  public searchCards(name: string, limit: number, page: number = 1) {
+  public searchCards(type: string, content: string, limit: number, page: number, query?: any, order?:any) {
     return this.http.get(
       this.api_url +
-        'cards?q=name:' +
-        JSON.stringify(name) +
-        '&page=' +
-        page +
-        '&pageSize=' +
-        limit
-    );
-  }
-
-  public searchCardsByArtist(artist: string, limit: number, page: number = 1) {
-    return this.http.get(
-      this.api_url +
-        'cards?q=artist:' +
-        JSON.stringify(artist) +
-        '&page=' +
-        page +
-        '&pageSize=' +
-        limit
-    );
-  }
-
-  public searchCardsByRarity(rarity: string, limit: number, page: number = 1) {
-    return this.http.get(
-      this.api_url +
-        'cards?q=rarity:' +
-        JSON.stringify(rarity) +
+        'cards?q=' + type + ':' +
+        (content.indexOf(' ') !== -1
+          ? JSON.stringify(content)
+          : content + '*') +
+        '&' +
+        'orderBy=' +
+        order +
+        query +
         '&page=' +
         page +
         '&pageSize=' +

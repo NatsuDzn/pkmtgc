@@ -1,4 +1,9 @@
+<div class="loader" *ngIf="!setLists">
+  <mat-spinner></mat-spinner>
+</div>
+
 <div class="sets">
+
     <ng-container *ngFor="let set of setLists?.reverse()">
       <div class="card" (click)="openSet(set.name, set.id)">
         <div class="card__img">

@@ -1,4 +1,4 @@
-  img {
+  .card-img {
     cursor: pointer;
     transition: all .35s ease-in-out;
     border-radius: 10px;
@@ -17,4 +17,21 @@
 
     max-width: 1440px;
     margin: 0 auto;
+
+    table {
+      width: 100%;
+
+      .type {
+        width: 25px;
+        max-width: 25px;
+        margin: 0;
+        margin-left: 4px;
+      }
+    }
+  }
+
+  .tooltip-card {
+    img {
+      border-radius: 10px;
+    }
   }

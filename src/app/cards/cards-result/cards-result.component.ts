@@ -31,7 +31,7 @@ export class CardsResultComponent implements OnInit {
   queryArtist: string = this.route.snapshot.queryParams.artist;
   queryRarity: string = this.route.snapshot.queryParams.rarity;
 
-  viewAs: string = 'list';
+  viewAs: string = 'images';
   querySort: string =
     this.route.snapshot.queryParams.sortedBy || 'set.releaseDate';
   queryOrder: string = this.route.snapshot.queryParams.order || '';
@@ -72,9 +72,14 @@ export class CardsResultComponent implements OnInit {
         .subscribe(
           (res) => {
             this.searchCards = res;
-            console.log(res['data']);
-
             this.dataSource.data = res['data'] as SearchCards[];
+            this.router.navigate(['/search'], {
+              queryParams: {
+                name: this.queryName,
+                sortedBy: this.querySort,
+                order: this.queryOrder,
+              },
+            });
           },
           (error) => {
             console.log(error);
@@ -221,7 +226,7 @@ export class CardsResultComponent implements OnInit {
 
   cardTooltip(index, event) {
     this.tooltipIndex = index;
-    this.mouseX = (event.clientX + 16) + 'px';
-    this.mouseY = (event.clientY + 16) + 'px';
+    this.mouseX = event.clientX + 16 + 'px';
+    this.mouseY = event.clientY + 16 + 'px';
   }
 }

@@ -18,6 +18,13 @@
     max-width: 1440px;
     margin: 0 auto;
 
+    .mat-row {
+      &:hover {
+        cursor: pointer;
+        background-color: #f1f1f1;
+      }
+    }
+
     table {
       width: 100%;
 
@@ -33,5 +40,18 @@
   .tooltip-card {
     img {
       border-radius: 10px;
+    }
+  }
+
+  .example-form {
+    width: 100%;
+    margin: 2rem 0;
+  }
+
+  .example-full-width {
+    width: 100%;
+
+    mat-icon {
+      margin-right: .5rem;
     }
   }

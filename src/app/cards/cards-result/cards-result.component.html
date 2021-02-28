@@ -3,12 +3,21 @@
 </div>
 
 <section *ngIf="searchCards">
-  <h3 class="mat-display-1" *ngIf="queryName">Search: {{queryName}}</h3>
+
+  <div class="example-form">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Card name</mat-label>
+      <input type="search" matInput placeholder="Search for a card (ex: charizard)" [(ngModel)]="queryName"
+        (keyup.enter)="searchCards = null; searchCard(queryName)">
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
   <h3 class="mat-display-1" *ngIf="queryArtist">Artist: {{queryArtist}}</h3>
 
   <p *ngIf="searchCards?.data.length === 0">No cards have been found</p>
 
-  <div class="sorting" *ngIf="searchCards && queryName || queryArtist || queryRarity">
+  <div class="sorting" *ngIf="searchCards">
     <mat-form-field appearance="outline">
       <mat-label>View as</mat-label>
       <mat-select [(value)]="viewAs" (selectionChange)="updateSort(querySort, queryOrder)">
@@ -92,7 +101,8 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;" (mousemove)="cardTooltip(i, $event)">
+      <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;" (mousemove)="cardTooltip(i, $event)"
+        (click)="openCard(row.name, row.id)">
       </tr>
     </table>
     <span class="tooltip-card">
